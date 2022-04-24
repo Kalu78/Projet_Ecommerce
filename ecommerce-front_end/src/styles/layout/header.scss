@@ -1,0 +1,71 @@
+.navbar{
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 50px;
+    z-index: 3;
+    &_left{
+        display: flex;
+    }
+    &_right{
+        column-gap: 20px;
+        display: flex;
+        align-items: center;
+        .container_search{
+            position: relative;
+            .search_bar{
+                display: flex;
+                align-items: center;
+                right: 0;
+                input{
+                    width: 200px;
+                    background-color: #E9ECEF;
+                    border: none;
+                    padding: 5px 10px;
+                }
+                .search_icon{
+                    position: absolute;
+                    right: 0;
+                    padding: 5px 10px;
+                }
+            }
+        }
+
+        .account svg{
+            font-size: 22px;
+        }
+
+    }
+
+    &_menu{
+        ul{
+            list-style: none;
+            display: flex;
+            padding: 0;
+            li{
+                padding: 0px 20px;
+            }
+
+            .overlay{
+                position: fixed;
+                top: 13%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 2;
+                width: 100%;
+                height: 100%;
+            }
+
+            .dropdown_menu{
+                position: absolute;
+                background-color: white;
+                z-index: 10;
+                margin-top: 2rem;
+                border-top: 1px solid black;
+            }
+        }
+    }
+}

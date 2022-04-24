@@ -1,0 +1,36 @@
+.banner{
+    position: relative;
+    &_img img{
+        width: 100%;
+        max-width: 100%;
+    }
+
+    &_content{
+        position: absolute;
+        top: 20%;
+        color: white;
+        width: 33%;
+    }
+
+    &_title{
+        font-family: 'demi_bold';
+        font-size: 28px;
+        margin: 0;
+    }
+
+    &_paragraphe{
+        font-family: 'regular';
+    }
+
+    &_button{
+        color: white;
+        background-color: unset;
+        border: none;
+        font-family: 'demi_bold';
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 16px;
+        padding: 0;
+        text-decoration: underline;
+    }
+}
