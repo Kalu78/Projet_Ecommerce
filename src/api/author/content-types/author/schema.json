@@ -23,6 +23,12 @@
       "relation": "manyToMany",
       "target": "api::book.book",
       "inversedBy": "authors"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "category"
     }
   }
 }
