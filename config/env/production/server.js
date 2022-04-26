@@ -1,3 +1,3 @@
 module.exports = ({ env }) => ({
-    url: env('https://adidas-back-end.herokuapp.com/'),
+    url: env('MY_HEROKU_URL'),
 });
