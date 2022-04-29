@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from "next/router";
 import productService from '../../../services/product.service';
+import ProductCard from '../../../components/ProductCard';
 
 const Index = () => {
 
@@ -19,6 +20,7 @@ const Index = () => {
         .then((data) => {
           console.log(data.data);
           setProducts(data.data);
+          console.log(product.attributes.image);
         })
         .catch((err) => console.log(err));      
     }, [router.isReady]);
@@ -27,7 +29,9 @@ const Index = () => {
         <div>
         {products &&
             products.map((product) => (
-             <h1 product={product} key={product.id}>{product.attributes.name}</h1>
+              <>
+            <ProductCard product={product} key={product.id} />
+             </>
             ))}
        
         </div>

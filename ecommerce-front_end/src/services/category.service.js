@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:1337/api";
+const apiUrl = "https://adidas-back-end.herokuapp.com/api";
 
 
 export default {
