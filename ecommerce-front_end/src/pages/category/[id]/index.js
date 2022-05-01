@@ -15,26 +15,30 @@ const Index = () => {
     useEffect(() => {
         
       if(!router.isReady) return;
-      const name = router.query.name;
-        productService.getProductsByCategory(name)
+      const id = router.query.id;
+        productService.getProductsByCategory(id)
         .then((data) => {
           console.log(data.data);
           setProducts(data.data);
-          console.log(product.attributes.image);
         })
         .catch((err) => console.log(err));      
     }, [router.isReady]);
 
     return (
-        <div>
-        {products &&
-            products.map((product) => (
-              <>
-            <ProductCard product={product} key={product.id} />
-             </>
-            ))}
-       
-        </div>
+      <div className='container'>
+          <div className='category_title'>
+            <h1></h1>
+          </div>
+          <div className='product_grid'>
+          {products &&
+              products.map((product) => (
+                <>
+              <ProductCard product={product} key={product.id} />
+              </>
+              ))}
+        
+          </div>
+      </div>
     );
 }
 

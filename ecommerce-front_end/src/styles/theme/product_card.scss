@@ -1,0 +1,40 @@
+.product{
+
+    &_card{
+        position: relative;
+        margin-bottom: 1rem;
+        transition: 2s;
+        &:hover{
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    }
+
+    &_img{
+        position: relative;
+
+        img{
+            width: 100%;
+        }
+
+        p{
+            position: absolute;
+            bottom: 0;
+            background: white;
+            margin: 0;
+            margin-left: 0px;
+            padding: 0.2rem;
+            margin-left: 0.3rem;
+        }
+    }
+
+    &_data{
+
+        padding: 5px;
+
+        p{
+            font-family: 'regular';
+            margin: 0;
+        }
+    }
+}

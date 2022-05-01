@@ -23,8 +23,8 @@
     },
     "image": {
       "type": "media",
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",

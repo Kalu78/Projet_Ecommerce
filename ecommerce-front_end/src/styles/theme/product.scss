@@ -1,0 +1,22 @@
+.main_content{
+    display: flex;
+}
+
+.product_content{
+    width: 100%;
+}
+
+.image_slider{
+    background-color: #edeff0;
+
+    img{
+        margin: 0 auto;
+        display: flex;
+        max-width: 50%;
+    }
+}
+
+.sidebar{
+    flex: 0 0 490px;
+    max-width: 490px;
+}

@@ -3,4 +3,8 @@
 @import "./helper/variables";
 
 @import "./layout/header";
-@import "./layout/banner";
+
+@import "./theme/banner";
+@import "./theme/grid";
+@import "./theme/product_card";
+@import "./theme/product";

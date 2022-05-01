@@ -23,6 +23,7 @@ const Header = (props) => {
         categoryService.getSubcategoriesName(e)
         .then((data) => {
             setSubcategories(data.data);
+            console.log(data.data);
         })
         .catch(err=>console.log(err))
     }
@@ -60,7 +61,7 @@ const Header = (props) => {
                         <div className='dropdown_menu'>
                             {subcategories &&
                                 subcategories.map((subcategory) => (   
-                                    <Link href={`/category/${subcategory.attributes.name}`}>
+                                    <Link href={`/category/${subcategory.id}`}>
                                     <p subcategory={subcategory} key={subcategory.id} onClick={() => setIsVisible(false)}>{subcategory.attributes.name} </p>
                                     </Link>
                             ))}
