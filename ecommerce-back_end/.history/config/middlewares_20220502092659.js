@@ -15,8 +15,8 @@ module.exports = [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
-          'media-src': ["'self'", 'data:', 'blob:', 'res.cloudinary.com'],
+          'img-src': ["'self'", 'data:', 'blob:', BUCKET_URL],
+          'media-src': ["'self'", 'data:', 'blob:', BUCKET_URL],
           upgradeInsecureRequests: null,
         },
       },

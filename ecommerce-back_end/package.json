@@ -9,10 +9,10 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "@strapi/plugin-i18n": "4.1.8",
     "@strapi/plugin-users-permissions": "4.1.8",
+    "@strapi/provider-upload-cloudinary": "^4.1.9",
     "@strapi/strapi": "4.1.8",
     "better-sqlite3": "7.4.6",
     "pg": "^8.7.3",
