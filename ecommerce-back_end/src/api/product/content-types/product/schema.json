@@ -32,7 +32,7 @@
         "audios"
       ]
     },
-    "description": {
+    "description_title": {
       "type": "text"
     },
     "price": {
@@ -43,6 +43,23 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "attributes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::attribute.attribute"
+    },
+    "description_subtitle": {
+      "type": "text"
+    },
+    "description_text": {
+      "type": "text"
+    },
+    "test": {
+      "type": "enumeration",
+      "enum": [
+        "test"
+      ]
     }
   }
 }

@@ -1,22 +1,186 @@
 .main_content{
     display: flex;
+    border-top: 1px solid #d0d6db;
 }
 
-.product_content{
-    width: 100%;
-}
+.product{
+    &_content{
+        width: 75%;
+        border-right: 1px solid #d0d6db;
+        .image_slider{
+            background-color: #edeff0;
+        
+            img{
+                margin: 0 auto;
+                display: flex;
+                max-width: 50%;
+            }
+        }
+    }
 
-.image_slider{
-    background-color: #edeff0;
+    &_bottom{
+        &_content{
+            padding: 20px 250px;
 
-    img{
-        margin: 0 auto;
-        display: flex;
-        max-width: 50%;
+            &_description{
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: center;
+                &_text{
+                    width: 50%;
+                    h2{
+                        font-size: 28px;
+                    }
+
+                    h4{
+                        font-family: 'italic';
+                        font-size: 24px;
+                    }
+
+                    p{
+                        font-family: 'thin';
+                        font-size: 18px;
+                    }
+                }
+
+                &_img{
+                    width: 50%;
+
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+
+
+
+        }
     }
 }
 
+.nav{
+    &_container{
+        border-top: 1px solid #d0d6db;
+        border-bottom: 1px solid #d0d6db;
+    }
+
+    &_content{
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        padding: 0px 250px;
+        p{
+            text-transform: uppercase;
+        }
+    }
+}
+
+
 .sidebar{
-    flex: 0 0 490px;
-    max-width: 490px;
+    width: 30%;
+    padding: 20px 40px;
+
+    .product{
+        &_name{
+            font-family: 'italic';
+            padding: 0;
+            margin: 0;
+        }
+        &_price{
+            font-family: 'demi_bold';
+            font-size: 18px;
+        }
+        &_attributes{
+            margin: 40px 0px;
+            p{
+                font-family: 'demi_bold';
+            }
+        }
+
+        &_taille{
+            display: flex;
+            padding: 0;
+            li{
+                list-style: none;
+                border: 1px solid #e5e8ec;
+                padding: 10px 30px;
+                &:hover{
+                    background-color: black;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+            .test{
+                color: yellow;
+            }
+        }
+
+        &_error{
+            font-size: 14px;
+            color: #e63f3f;
+        }
+    }
+}
+
+.overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+
+//MODAL CONFIRMATION AJOUT PANIER
+.modal{
+    &_container{
+        padding: 20px;
+    }
+
+    &_title{
+        text-transform: uppercase;
+        margin: 10px 0px 30px 0px;
+        font-size: 28px;
+    }
+
+    &_add_to_cart{
+        position: fixed;
+        z-index: 3;
+        background: white;
+        width: 50%;
+        left: 50%;
+        padding: 0 20px;
+        transform: translate(-50%, 0%);
+    }
+    
+    &_content{
+        display: flex;
+        &_left{
+            width: 50%;
+            display: flex;
+            gap: 20px;
+        }
+        &_right{
+            width: 50%;
+            border-left: 1px solid #000;
+            padding-left: 20px;
+
+            h4{
+                margin: 0;
+            }
+        }
+    }
+
+    &_img{
+        width: 50%;
+        img{
+            width: 100%;
+        }
+
+    }
 }

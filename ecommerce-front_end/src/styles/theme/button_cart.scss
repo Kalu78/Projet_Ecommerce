@@ -1,0 +1,19 @@
+.button_cart{
+    button{
+        width: 100%;
+        border: none;
+        background-color: black;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        font-family: bold;
+        letter-spacing: 3px;
+        font-size: 16px;
+        &:hover{
+            cursor: pointer;
+            color: #797979;
+        }
+    }
+}

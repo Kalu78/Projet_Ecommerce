@@ -18,3 +18,17 @@
     font-family: 'demi_bold';
     src: url(../../public/font/ITC/ITCAvantGardeStd-DemiBold.otf);
 }
+
+@font-face {
+    font-family: 'italic';
+    src: url(../../public/font/ITC/ITCAvantGardeStd-MdItalic.otf);
+}
+
+h1, h2, h3, h4, h5{
+    font-family: 'demi_bold';
+    text-transform: uppercase;
+}
+
+p{
+    font-family: 'regular';
+}

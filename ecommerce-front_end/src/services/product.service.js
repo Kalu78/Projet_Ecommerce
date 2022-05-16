@@ -7,7 +7,7 @@ export default {
         .then((res) => res.json())
     },
     getProductById(id) {
-        return fetch(`${apiUrl}/products/${id}?populate=image`)
+        return fetch(`${apiUrl}/products/${id}?populate=*`)
         .then((res) => res.json())
     },
 }

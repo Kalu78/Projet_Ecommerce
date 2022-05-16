@@ -7,7 +7,7 @@ const Productcard = (props) => {
         <Link href={`/product/${props.product.id}`}>
             <div className="product_card">
                 <div className="product_img">
-                    <img src={`https://adidas-back-end.herokuapp.com${props.product.attributes.image.data[0].attributes.url}`} alt={props.product.attributes.title} />
+                    <img src={`${props.product.attributes.image.data[0].attributes.url}`} alt={props.product.attributes.title} />
                     <p>{props.product.attributes.price} €</p>
                 </div>
                 <div className="product_data">
