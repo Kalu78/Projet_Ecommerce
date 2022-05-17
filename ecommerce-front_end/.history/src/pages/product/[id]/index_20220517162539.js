@@ -89,8 +89,6 @@ const Index = () => {
         return cart.reduce((total, product) => total + product.quantity,0)
     }
     
-    console.log(cart);
-
     useEffect(() => {
 
         setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || [])

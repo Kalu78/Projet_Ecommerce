@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import productService from '../../../services/product.service';
 import ButtonCart from '../../../components/Button/ButtonCart';
 import Slider from '../../../components/Slider';
-import Link from 'next/link';
 
 const Index = () => {
 
@@ -89,8 +88,6 @@ const Index = () => {
         return cart.reduce((total, product) => total + product.quantity,0)
     }
     
-    console.log(cart);
-
     useEffect(() => {
 
         setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || [])
@@ -128,9 +125,8 @@ const Index = () => {
                                 <h4>Mon panier</h4>
                                 <p>{renderTotalQty()} articles</p>
                                 <p>Coût total : {renderTotalAmount()} €</p>
-                                <Link href={`/cart`}>
-                                    <ButtonCart title="Voir mon panier"/>
-                                </Link>
+                                <Link href={`/cart`}></Link>
+                                <ButtonCart title="Voir mon panier"/>
                             </div>
                         </div>
                     </div>

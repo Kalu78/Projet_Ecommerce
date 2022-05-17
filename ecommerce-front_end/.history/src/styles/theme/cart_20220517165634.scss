@@ -1,0 +1,14 @@
+.cart{
+    &_content{
+        display: flex;
+    }
+
+    &_left{
+        width: 70%;
+    }
+
+    &_right{
+        width: 30%;
+    }
+
+}

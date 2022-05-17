@@ -86,9 +86,7 @@ const Header = (props) => {
                 <FontAwesomeIcon icon={faUser} />
                 </div>
                 <div className='cart'>
-                    <Link href={`/cart`}>
-                        <FontAwesomeIcon icon={faCartShopping} size="lg"/>
-                    </Link>
+                <FontAwesomeIcon icon={faCartShopping} size="lg"/>
                 </div>
             </div>
         </div>
