@@ -12,7 +12,6 @@ const Index = () => {
 
     const deleteItem= (e) =>{
         console.log(e);
-        localStorage.removeItem()
     }
 
     console.log(cart);

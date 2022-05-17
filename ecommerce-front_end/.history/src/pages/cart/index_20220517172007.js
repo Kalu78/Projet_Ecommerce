@@ -10,11 +10,6 @@ const Index = () => {
         setCart(JSON.parse(localStorage.getItem("cart")) || []);
     }, []);
 
-    const deleteItem= (e) =>{
-        console.log(e);
-        localStorage.removeItem()
-    }
-
     console.log(cart);
 
     // const renderTotalQty = () => {
@@ -44,7 +39,7 @@ const Index = () => {
                                 <div className='cart_card_content_description'>
                                     <p>{cart.name}</p>
                                     <p>{cart.price}€</p>
-                                    <p onClick={() => deleteItem(cart.id)}>delete</p>
+                                    <p onClick={() => deleteItem()}>delete</p>
                                 </div>
                                 <p>Taille: {cart.size}</p>
                             </div>

@@ -12,7 +12,6 @@ const Index = () => {
 
     const deleteItem= (e) =>{
         console.log(e);
-        localStorage.removeItem()
     }
 
     console.log(cart);
@@ -44,7 +43,7 @@ const Index = () => {
                                 <div className='cart_card_content_description'>
                                     <p>{cart.name}</p>
                                     <p>{cart.price}€</p>
-                                    <p onClick={() => deleteItem(cart.id)}>delete</p>
+                                    <p onClick={() => deleteItem({cart.id})}>delete</p>
                                 </div>
                                 <p>Taille: {cart.size}</p>
                             </div>
