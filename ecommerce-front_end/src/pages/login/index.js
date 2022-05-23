@@ -8,6 +8,8 @@ import Link from 'next/link';
 const Index = () => {
 
     const [user, setUser] = useState();
+
+    const [error, setError] = useState();
     
     const router = useRouter();
 
@@ -20,16 +22,26 @@ const Index = () => {
       const submitLogin = (e) => {
         e.preventDefault();
         userService.login(user)
-        .then((data) => { 
-            console.log(data);
-            localStorage.setItem('token', data.jwt);
-            router.push('/profil')
+        .then((data) => {
+            if (data.error){
+              setError(true);
+            }
+            else{
+              console.log(data);
+              localStorage.setItem('token', data.jwt);
+              router.push('/profil');
+            }
         })
         .catch(err => console.log(err));
       }
     return (
       <div className="login_page container">
         <h1 className='register_title'>Se connecter</h1>
+        {error ? (
+          <p className='login_error'>E-mail et / ou mot de passe incorrect.</p>
+        ) : (
+          ''
+        )}
         <form className="form" onSubmit={(e)=> submitLogin(e)}>
           <Input
             name="identifier"

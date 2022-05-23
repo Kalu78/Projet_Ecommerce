@@ -69,16 +69,16 @@
     "firstname": {
       "type": "string"
     },
-    "orders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order.order",
-      "mappedBy": "users_permissions_user"
-    },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment",
+      "mappedBy": "user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
       "mappedBy": "user"
     }
   }

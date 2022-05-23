@@ -2,37 +2,44 @@ import React, {useState} from 'react';
 import ButtonCart from '../../components/Button/ButtonCart';
 import Input from "../../components/Input";
 import { useRouter } from "next/router";
+import userService from '../../services/user.service';
 import Link from 'next/link';
 
 const Index = () => {
 
     const [user, setUser] = useState({});
     const router = useRouter();
+    const [error, setError] = useState();
 
     const submitRegister = (e) => {
         e.preventDefault();
-        console.log(user);
-        // userService.register(user)
-        // .then(
-        //   (data) => {
-        //     if (data.error){
-        //     }
-        //     else{
-        //       localStorage.setItem("token", data.jwt);
-        //       router.push('/profil');
-        //     }
-        //   }
-        // )
-        // .catch(err => {
-        //   console.log(err);
-        //   setShowModal(true);      
-        // });
+        userService.register(user)
+        .then(
+          (data) => {
+            if (data.error){
+              setError(true);
+            }
+            else{
+              localStorage.setItem("token", data.jwt);
+              router.push('/profil');
+            }
+          }
+        )
+        .catch(err => {
+          console.log(err);
+          setShowModal(true);      
+        });
       }
 
     return (
   
         <div className='register_page container'>
             <h1 className='register_title'>Inscription</h1>
+            {error ? (
+              <p className='login_error'>Le pseudo est déjà pris, veuillez en choisir un autre.</p>
+            ) : (
+              ''
+            )}
             <div className='register_form'>
                 <form className="form" onSubmit={(e)=> submitRegister(e)}>
                     <p>Ton nom</p>

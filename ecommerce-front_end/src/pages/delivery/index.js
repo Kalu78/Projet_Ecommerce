@@ -4,6 +4,7 @@ import ButtonCart from '../../components/Button/ButtonCart';
 import Input from '../../components/Input';
 import CartItem from '../../components/CartItem';
 import Link from 'next/link';
+import userService from '../../services/user.service';
 
 const Index = () => {
 
@@ -15,6 +16,8 @@ const Index = () => {
 
     const [isModal, setIsModal] = useState();
 
+    const [user, setUser] = useState();
+
     const [name, setName] = useState('');
     const [firstname, setFirstname] = useState('');
     const [address, setAddress] = useState('');
@@ -23,6 +26,14 @@ const Index = () => {
 
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem("cart")));
+
+        userService.getMe(localStorage.getItem('token'))
+        .then(data=> {
+            setUser(data);
+        })
+        .catch(err=>console.log(err))
+        
+        
 
         if(localStorage.getItem("cart") === null){
             router.push('/cart');
@@ -41,19 +52,20 @@ const Index = () => {
 
     const submitOrder = (e) => {
         e.preventDefault();
-        console.log(postalCode.postal_code);
+        const token = localStorage.getItem("token");
         return fetch(`https://adidas-back-end.herokuapp.com/api/orders`, {
             method: "POST",
             mode: 'cors',
             headers: {
-                "Content-Type":"Application/json"
+                "Content-Type":"Application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({data:{
                 products_details: products_details,
                 products: products_ids,
                 total: products_total,
                 products: products_ids,
-                users_permissions_user: 1,
+                user: user.id,
                 name: name.name,
                 firstname: firstname.firstname,
                 address: address.address,
@@ -63,7 +75,6 @@ const Index = () => {
         })
         .then(
             setIsModal(true),
-            localStorage.removeItem('cart')
         )
         // e.preventDefault();
         // console.log(name);
@@ -91,10 +102,10 @@ const Index = () => {
                             </div>
                         </div>
                     </div>
+                    <Link href={`/`}>
+                        <ButtonCart title="Retour à la page d'accueil"/>
+                    </Link>
                 </div>
-                <Link href={`/`}>
-                    <ButtonCart title="Retour à la page d'accueil"/>
-                </Link>
             </div>
             ) : (
               

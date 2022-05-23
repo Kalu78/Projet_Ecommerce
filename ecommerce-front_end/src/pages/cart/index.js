@@ -26,7 +26,7 @@ const Index = () => {
 
     return (
         <div className='cart_page container'>
-            {cart != 0 || cart === undefined ? (
+            {(cart != 0) ? (
                 <div>
                     <h1 className='cart_title'>Mon panier</h1>
                     <div className='cart_content'>

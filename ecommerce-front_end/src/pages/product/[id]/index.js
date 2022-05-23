@@ -137,36 +137,46 @@ const Index = ( { data, review, id } ) => {
 
     const [comment, setComment] = useState();
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState([]);
 
 
     useEffect(() => {
+
         userService.getMe(localStorage.getItem('token'))
         .then(data=> {
             setUser(data);
         })
         .catch(err=>console.log(err))
 
-        setComment({...comment, user: user && user.name});
     }, [user, setUser]);
 
 
-    useEffect(() => {
-        setComment({...comment, product: id});
-    }, []);
+
 
     const submitComment = (e) => {
         e.preventDefault();
         if(localStorage.getItem("token")) {
-            commentService.setComment(comment)
-            .then((data) => { 
-                console.log(comment);
-                console.log(data);
+            const token = localStorage.getItem("token");
+            return fetch(`https://adidas-back-end.herokuapp.com/api/comments`, {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    "Authorization": `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data:{
+                    content: comment.content,
+                    user: user.id,
+                    product: id,
+                }})
+            })  
+            .then(() => { 
                 router.push(`/product/${product.id}`);
             })
             .catch(err => console.log(err));
         } else{
-            console.log("error");
+            setErrorComment(true);
         }  
     }
 
@@ -217,8 +227,8 @@ const Index = ( { data, review, id } ) => {
                     <div className='nav_container'>
                         <div className='nav_content'>
                             <p>Description</p>
-                            <p>Détails</p>
-                            <p>Avis</p>
+                            <p>Commentaires</p>
+                            <p>Produits similaires</p>
                         </div>
                     </div>
                     <div className='product_bottom_content'>
@@ -234,28 +244,35 @@ const Index = ( { data, review, id } ) => {
                         </div>
 
                         <div className='product_bottom_comments'>
-                            <h1>Commentaires</h1>
-                            {comments &&
-                                comments.map((comment) => (
+                            <h2>Commentaires</h2>
+                            <div>
+                                {comments != 0 ? (
                                     <div>
-                                        <p>{
-                                            comment.attributes.createdAt.substring(0, 10)}</p> 
-                                        <p>{comment.attributes.Content}</p>  
+                                    {comments &&
+                                        comments.map((comment) => (
+                                            <div className='product_bottom_comments_content'>
+                                                <p>{comment && comment.attributes.user.data.attributes.firstname} {comment && comment.attributes.user.data.attributes.name} - {comment.attributes.createdAt.substring(0, 10)}</p> 
+                                                <p>Commentaire : {comment.attributes.content}</p>  
+                                            </div>
+                                    ))}
                                     </div>
-                            ))}
+                                ) : (
+                                    <p>Pas encore de commentaires</p>
+                                )}
+                            </div>
                             <h3>Ajouter un commentaire</h3>
                             <form className="form" onSubmit={(e)=> submitComment(e)}>
                                 <Input
-                                    name="Content"
-                                    id="Content"
-                                    type="textarea"
+                                    name="content"
+                                    id="content"
+                                    type="text"
                                     classes="form__input"
                                     required={true}
                                     placeholder="Commentaire"
-                                    handleChange={ (e) => setComment({...comment, Content:e.target.value})}
+                                    handleChange={ (e) => setComment({content:e.target.value})}
                                 />
                                 {errorComment ? (
-                                    <p className='product_error'> Veuillez renseigner votre commentaire </p>
+                                    <p className='product_error'>Vous devez être connecté pour pouvoir écrire un commentaire</p>
                                     ) : (
                                         ""
                                 )}

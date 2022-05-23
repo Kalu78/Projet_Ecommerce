@@ -4,27 +4,26 @@
   "info": {
     "singularName": "comment",
     "pluralName": "comments",
-    "displayName": "Comment",
-    "description": ""
+    "displayName": "Comment"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Content": {
+    "content": {
       "type": "text"
-    },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "comments"
     },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
+      "inversedBy": "comments"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "comments"
     }
   }
