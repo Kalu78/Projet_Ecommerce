@@ -1,24 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from "next/router";
+import Input from "../../../components/Input";
 import productService from '../../../services/product.service';
+import userService from '../../../services/user.service';
+import commentService from '../../../services/comment.service';
 import ButtonCart from '../../../components/Button/ButtonCart';
 import Slider from '../../../components/Slider';
 import Link from 'next/link';
 
+
 export async function getServerSideProps(context){
-    const { id } = context.query;
-      const data = await productService.getProductById(id);
+    const { id } = await context.query;
+    const data = await productService.getProductById(id);
+    const review = await productService.getProductComments(id)
       return {
         props: {
-          data
+            id,
+            data,
+            review,
         },
       };
 }   
 
-const Index = ( { data } ) => {
+const Index = ( { data, review, id } ) => {
 
     useEffect(() => {
         setProduct(data.data);
+        setAttributes(data.data.attributes.attributes);
+        setComments(review.data);
     });
 
     const router = useRouter();
@@ -28,6 +37,7 @@ const Index = ( { data } ) => {
     const [productSelected, setProductSelected] = useState();
     const [productViewed, setProductViewed] = useState();
 
+    const [comments, setComments] = useState();
 
     const [isError, setIsError] = useState();
     const [isModal, setIsModal] = useState();
@@ -36,6 +46,9 @@ const Index = ( { data } ) => {
 
 
     const [cart, setCart] = useState();
+
+
+    const [errorComment, setErrorComment] = useState(false);
 
 
 
@@ -48,7 +61,6 @@ const Index = ( { data } ) => {
         e.preventDefault();
         let selectedTag = e ? parseInt(e.target.id, 10) : null;
         setClickedItem(selectedTag);
-        console.log(">> clickedItem", clickedItem);
     };
 
     //PANIER 
@@ -116,20 +128,49 @@ const Index = ( { data } ) => {
     }
     
 
+
     useEffect(() => {
 
         setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || []);
-        console.log(productViewed);
-        
-        if(!router.isReady) return;
-        const id = router.query.id;
-        productService.getProductById(id)
-        .then((data) => {
-        setProduct(data.data);
-        setAttributes(data.data.attributes.attributes);
+
+    }, []);
+
+    const [comment, setComment] = useState();
+
+    const [user, setUser] = useState();
+
+
+    useEffect(() => {
+        userService.getMe(localStorage.getItem('token'))
+        .then(data=> {
+            setUser(data);
         })
-        .catch((err) => console.log(err));      
-    }, [router.isReady]);
+        .catch(err=>console.log(err))
+
+        setComment({...comment, user: user && user.name});
+    }, [user, setUser]);
+
+
+    useEffect(() => {
+        setComment({...comment, product: id});
+    }, []);
+
+    const submitComment = (e) => {
+        e.preventDefault();
+        if(localStorage.getItem("token")) {
+            commentService.setComment(comment)
+            .then((data) => { 
+                console.log(comment);
+                console.log(data);
+                router.push(`/product/${product.id}`);
+            })
+            .catch(err => console.log(err));
+        } else{
+            console.log("error");
+        }  
+    }
+
+    
 
     return (
         <div className='main_content'>
@@ -191,6 +232,37 @@ const Index = ( { data } ) => {
                                 <img src={product && product.attributes.image.data[0].attributes.url} alt={product && product.attributes.title}/>
                             </div>
                         </div>
+
+                        <div className='product_bottom_comments'>
+                            <h1>Commentaires</h1>
+                            {comments &&
+                                comments.map((comment) => (
+                                    <div>
+                                        <p>{
+                                            comment.attributes.createdAt.substring(0, 10)}</p> 
+                                        <p>{comment.attributes.Content}</p>  
+                                    </div>
+                            ))}
+                            <h3>Ajouter un commentaire</h3>
+                            <form className="form" onSubmit={(e)=> submitComment(e)}>
+                                <Input
+                                    name="Content"
+                                    id="Content"
+                                    type="textarea"
+                                    classes="form__input"
+                                    required={true}
+                                    placeholder="Commentaire"
+                                    handleChange={ (e) => setComment({...comment, Content:e.target.value})}
+                                />
+                                {errorComment ? (
+                                    <p className='product_error'> Veuillez renseigner votre commentaire </p>
+                                    ) : (
+                                        ""
+                                )}
+                                <ButtonCart title="Commenter"/>
+                            </form>
+                        </div>
+
                         <div className='product_bottom_recommended'>
                             <Slider title='Toujours intéressé ?' products={productViewed}/>
                         </div>

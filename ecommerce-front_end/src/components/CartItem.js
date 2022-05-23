@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = (props) => {
+const CartItem = (props) => {
   return (
     <div>
         <div className='cart_card'>
@@ -21,4 +21,4 @@ const Input = (props) => {
   );
 };
 
-export default Input;
+export default CartItem;

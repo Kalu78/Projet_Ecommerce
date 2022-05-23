@@ -81,6 +81,11 @@
     width: 30%;
     padding: 20px 15px;
 
+    &_content{
+        position: fixed;
+        padding: 20px 15px;
+    }
+
     .product{
         &_name{
             font-family: 'italic';

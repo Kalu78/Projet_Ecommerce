@@ -25,6 +25,10 @@ export default {
     getProductBySize(size, id){
         return fetch(`${apiUrl}/products?filters[attributes][size][$contains]=${size}&filters[subcategory][id][$eq]=${id}&populate[image][fields][1]=url`)
         .then((res) => res.json())
+    },
+    getProductComments(id){
+        return fetch(`${apiUrl}/comments?filters[product][id][$eq]=${id}&populate=*`)
+        .then((res) => res.json())
     }
 }
 

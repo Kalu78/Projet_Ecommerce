@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 
 
-const Header = (props) => {
+const Header = () => {
 
 
 
@@ -38,6 +38,12 @@ const Header = (props) => {
 
 
     return (
+        <>
+        {isVisible ? ( 
+            <div className='overlay' onClick={() => setIsVisible(false)}></div>
+            ) : (
+                ''
+        )}
         <div className='navbar'>
             <div className='navbar_left'>
                 <Link href={`/`}>
@@ -45,38 +51,30 @@ const Header = (props) => {
                 </Link>
             </div>
             <div className='navbar_menu'>
-                <ul>
                 {categories &&
-                    categories.map((category) => (   
-                    
-                            <li category={category} key={category.id} onClick={(e) => getSubcategories(category.attributes.name)}>
+                    categories.map((category, index) => (   
+                        <div className='navbar_menu_category'>
+                            <h3 category={category} key={index} className={index} onClick={(e) => getSubcategories(category.attributes.name)}>
                                 {category.attributes.name} 
-
-                                {subcategoriesVisible ? (
-                                    // {category.attributes.subcategories.name} qqc comme ca
-                                )}    
-
-                            </li>
-
-                    ))}
-                    {isVisible ? ( 
-                        <div>
-                            <div className='overlay' onClick={() => setIsVisible(false)}></div>
-                            <div className='dropdown_menu'>
-                                {subcategories &&
-                                    subcategories.map((subcategory) => (   
-                                        <Link href={`/category/${subcategory.id}`}>
-                                        <p subcategory={subcategory} key={subcategory.id} onClick={() => setIsVisible(false)}>{subcategory.attributes.name} </p>
-                                        </Link>
+                            </h3>
+                        
+                            {isVisible ? ( 
+                            <>
+                            <div className='navbar_menu_dropdown'>
+                                {category.attributes.subcategories.data.map((subcategory) => ( 
+                                    <Link href={`/category/${subcategory.id}`}>
+                                        <p subcategory={subcategory} key={subcategory.id} onClick={() => setIsVisible(false)}>{subcategory.attributes.name}</p> 
+                                    </Link>
                                 ))}
                             </div>
+                            </>
+                            ) : (
+                                ''
+                            )}
                         </div>
-                    ) : (
-                        ""
-                    )}
-                
-                </ul>
-             
+                        
+
+                    ))}    
             </div>
             <div className='navbar_right'>
                 <div className='container_search'>
@@ -99,6 +97,7 @@ const Header = (props) => {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

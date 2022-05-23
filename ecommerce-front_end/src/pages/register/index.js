@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ButtonCart from '../../components/Button/ButtonCart';
-import Input from "../../components/input";
+import Input from "../../components/Input";
 import { useRouter } from "next/router";
 import Link from 'next/link';
 
@@ -36,6 +36,15 @@ const Index = () => {
             <div className='register_form'>
                 <form className="form" onSubmit={(e)=> submitRegister(e)}>
                     <p>Ton nom</p>
+                    <Input
+                        name="username"
+                        id="username"
+                        type="text"
+                        classes="form__input"
+                        required={true}
+                        placeholder="Pseudo"
+                        handleChange={(e) => setUser({...user, username:e.target.value})}
+                    />
                     <Input
                         name="firstName"
                         id="firstName"

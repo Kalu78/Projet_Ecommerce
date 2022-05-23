@@ -18,7 +18,7 @@
       "minLength": 3,
       "unique": true,
       "configurable": false,
-      "required": false
+      "required": true
     },
     "email": {
       "type": "email",
@@ -74,6 +74,12 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "users_permissions_user"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "user"
     }
   }
 }

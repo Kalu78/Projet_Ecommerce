@@ -55,11 +55,11 @@
     "description_text": {
       "type": "text"
     },
-    "test": {
-      "type": "enumeration",
-      "enum": [
-        "test"
-      ]
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "product"
     }
   }
 }
