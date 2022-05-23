@@ -1,0 +1,46 @@
+.delivery{
+    &_content{
+        display: flex;
+        gap: 50px;
+        form{
+            width: 60%;
+
+            .button_cart{
+                margin-top: 20px;
+            }
+        }
+    }
+
+    &_names, &_city{
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        .form_group{
+            width: 100%;
+            input{
+                width: 100%;
+            }
+        }
+    }
+
+    &_address{
+        width: 100%;
+        .form_group{
+            margin: 20px 0px;
+            width: 100%;
+            input{
+                width: 100%;
+            }
+        }
+    }
+
+    &_resume{
+        width: 40%;
+        .cart_card_content_description{
+            display: initial;
+        }
+        .delete_item{
+            display: none;
+        }
+    }
+}

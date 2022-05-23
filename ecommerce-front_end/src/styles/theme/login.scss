@@ -1,0 +1,18 @@
+.login_page{
+    width: 50%;
+    input{
+        width: 100%;
+    }
+
+    p{
+        font-size: 22px;
+    }
+
+    .register_link{
+        font-weight: bold;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+}

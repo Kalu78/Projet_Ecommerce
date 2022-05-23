@@ -1,0 +1,26 @@
+.resume{
+    &_order{
+        margin-top: 20px;
+        border: solid 1px #e8ebee;
+    }
+
+    &_content{
+        padding: 10px;
+    }
+
+    &_total{
+        p{
+            font-weight: bold;
+        }
+    }
+}
+
+
+.resume_product, .resume_carrier, .resume_total{
+    display: flex;
+    justify-content: space-between;
+
+    p{
+        margin: 0.5rem 0;
+    }
+}

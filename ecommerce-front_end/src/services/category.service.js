@@ -13,5 +13,9 @@ export default {
     getSubcategoriesName(name){
         return fetch(`${apiUrl}/subcategories?filters[category][name][$eq]=${name}`)
         .then((res) => res.json())
+    },
+    getSubcategoriesById(id){
+        return fetch (`${apiUrl}/subcategories/${id}?populate=*`)
+        .then((res) => res.json())
     }
 }

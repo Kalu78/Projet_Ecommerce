@@ -26,6 +26,9 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "subcategories"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

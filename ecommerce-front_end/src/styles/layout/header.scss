@@ -1,9 +1,17 @@
+.navbar > * {
+    margin: 0px 50px;
+}
+
+Link:hover{
+    cursor: pointer;
+}
+
 .navbar{
     z-index: 3;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0px 50px;
+    border-bottom: 1px solid #E9ECEF;
     z-index: 3;
     &_left{
         display: flex;
@@ -32,8 +40,18 @@
             }
         }
 
+        .cart{
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
         .account svg{
             font-size: 22px;
+
+            &:hover{
+                cursor: pointer;
+            }
         }
 
     }
@@ -45,6 +63,12 @@
             padding: 0;
             li{
                 padding: 0px 20px;
+                font-family: 'demi_bold';
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                &:hover{
+                    cursor: pointer;
+                }
             }
 
             .overlay{
@@ -60,11 +84,18 @@
             }
 
             .dropdown_menu{
-                position: absolute;
-                background-color: white;
-                z-index: 10;
-                margin-top: 2rem;
-                border-top: 1px solid black;
+                // position: absolute;
+                // background-color: white;
+                // z-index: 10;
+                // margin-top: 2rem;
+                // border-top: 1px solid black;
+
+                p{
+                    &:hover{
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
             }
         }
     }

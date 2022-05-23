@@ -5,9 +5,21 @@ import ButtonCart from '../../../components/Button/ButtonCart';
 import Slider from '../../../components/Slider';
 import Link from 'next/link';
 
-const Index = () => {
+export async function getServerSideProps(context){
+    const { id } = context.query;
+      const data = await productService.getProductById(id);
+      return {
+        props: {
+          data
+        },
+      };
+}   
 
+const Index = ( { data } ) => {
 
+    useEffect(() => {
+        setProduct(data.data);
+    });
 
     const router = useRouter();
 
@@ -20,10 +32,37 @@ const Index = () => {
     const [isError, setIsError] = useState();
     const [isModal, setIsModal] = useState();
     const [isSelected, setIsSelected] = useState(false);
+    const [clickedItem, setClickedItem] = useState(null);
 
-    const getProductBySize = (e) => {
+
+    const [cart, setCart] = useState();
+
+
+
+    const getProductBySize = (attribute) => {
         setIsSelected(!isSelected)
-        setProductSelected(e);
+        setProductSelected(attribute);
+    }
+
+    const handleCSS = (e) => {
+        e.preventDefault();
+        let selectedTag = e ? parseInt(e.target.id, 10) : null;
+        setClickedItem(selectedTag);
+        console.log(">> clickedItem", clickedItem);
+    };
+
+    //PANIER 
+
+    useEffect(() => {
+        setCart(JSON.parse(localStorage.getItem("cart")) || []);
+    }, []);
+
+    const renderTotalAmount = () => {
+        return cart.reduce((total, product) => total + (product.quantity * product.price),0)
+    }
+
+    const renderTotalQty = () => {
+        return cart.reduce((total, product) => total + product.quantity,0)
     }
 
     const addToCart = (e) => {
@@ -52,6 +91,8 @@ const Index = () => {
             localStorageCart.forEach((product) => {
             cartArray.push(product);
             });
+
+            setCart(cartArray);
     
             const indexOfExistingProduct = cartArray.findIndex((el) => el.id === e.id && el.size === productSelected);
 
@@ -69,31 +110,16 @@ const Index = () => {
             setIsError(false);
             setIsModal(true);
             cartArray.push(productToInsert);
+            setCart(cartArray);
             localStorage.setItem("cart", JSON.stringify(cartArray));
         }
     }
-
-    //PANIER 
-
-    const [cart, setCart] = useState();
-
-    useEffect(() => {
-        setCart(JSON.parse(localStorage.getItem("cart")) || []);
-    }, []);
-
-    const renderTotalAmount = () => {
-        return cart.reduce((total, product) => total + (product.quantity * product.price),0)
-    }
-
-    const renderTotalQty = () => {
-        return cart.reduce((total, product) => total + product.quantity,0)
-    }
     
-    console.log(cart);
 
     useEffect(() => {
 
-        setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || [])
+        setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || []);
+        console.log(productViewed);
         
         if(!router.isReady) return;
         const id = router.query.id;
@@ -140,8 +166,9 @@ const Index = () => {
               
             ''
             )}
-
+                
             <div className='product_content'>
+            
                 <div className='image_slider'>
                     <img src={product && product.attributes.image.data[0].attributes.url} alt={product && product.attributes.title}/>
                 </div>
@@ -165,7 +192,7 @@ const Index = () => {
                             </div>
                         </div>
                         <div className='product_bottom_recommended'>
-                            <Slider product='test' products={productViewed}/>
+                            <Slider title='Toujours intéressé ?' products={productViewed}/>
                         </div>
                     </div>
                 </div>
@@ -183,15 +210,19 @@ const Index = () => {
                     </div>
                     <div className='product_attributes'>
                         <p>Tailles disponibles</p>
-                        <ul className='product_taille'>
+                        <div className='product_taille'>
                             {attributes &&
-                                attributes.data.map((attribute) => (
-                                    <li onClick={(e) => getProductBySize(attribute.attributes.size)}
-                                        className={isSelected ? ( `test` ) : ("")}>
-                                        {attribute.attributes.size}
-                                    </li>
+                                attributes.data.map((attribute, index) => (
+                                    <div
+                                    onClick={() => getProductBySize(attribute.attributes.size)}
+                                    >
+                                        <button key={index}
+                                        id={index}
+                                        className={index === clickedItem ? "is-checked" : null}
+                                        onClick={handleCSS}>{attribute.attributes.size}</button>
+                                    </div>
                             ))}
-                        </ul>
+                        </div>
                         {isError ? (
                             <p className='product_error'> Veuillez sélectionner une taille </p>
                             ) : (

@@ -1,0 +1,36 @@
+.slider{
+    margin: 40px 0px;
+}
+
+.slide{
+    &_image{
+        width: 100%;
+    }
+}
+
+.swiper-slide:hover{
+    cursor: pointer;
+}
+
+.swiper-button-next, .swiper-button-prev{
+    background: white !important;
+    border: 1px solid black !important;
+    top: 40% !important;
+    padding: 5px 25px !important;
+    &::after{
+        font-size: 30px !important;
+        color: black;
+    }
+}
+
+.swiper-button-next{
+    right: 0 !important;
+}
+
+.swiper-button-prev{
+    left: 0 !important;
+}
+
+.swiper-pagination-bullet{
+    background: black !important;
+}

@@ -5,7 +5,7 @@
 
 .product{
     &_content{
-        width: 75%;
+        width: 70%;
         border-right: 1px solid #d0d6db;
         .image_slider{
             background-color: #edeff0;
@@ -20,7 +20,7 @@
 
     &_bottom{
         &_content{
-            padding: 20px 250px;
+            padding: 20px 50px;
 
             &_description{
                 display: flex;
@@ -79,7 +79,7 @@
 
 .sidebar{
     width: 30%;
-    padding: 20px 40px;
+    padding: 20px 15px;
 
     .product{
         &_name{
@@ -99,20 +99,24 @@
         }
 
         &_taille{
-            display: flex;
+            display: grid;
+            text-align: center;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
             padding: 0;
-            li{
+            button{
                 list-style: none;
                 border: 1px solid #e5e8ec;
-                padding: 10px 30px;
+                width: 100%;
+                background: white;
+                font-weight: 20px;
+                font-family: 'regular';
+                padding: 15px 0;
+                font-size: 14px;
                 &:hover{
                     background-color: black;
                     color: white;
                     cursor: pointer;
                 }
-            }
-            .test{
-                color: yellow;
             }
         }
 
@@ -152,7 +156,7 @@
         position: fixed;
         z-index: 3;
         background: white;
-        width: 50%;
+        width: 80%;
         left: 50%;
         padding: 0 20px;
         transform: translate(-50%, 0%);
@@ -183,4 +187,10 @@
         }
 
     }
+}
+
+.is-checked {
+    background: black !important;
+    color: white;
+    font-family: 'bold' !important;
 }

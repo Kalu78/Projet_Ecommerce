@@ -1,0 +1,11 @@
+.filter{
+    &_container{
+        width: 500px;
+        background: white;
+        height: 100vh;
+        z-index: 999;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}

@@ -1,0 +1,28 @@
+.register_page{
+    width: 50%;
+
+    form{
+        input{
+            width: 100%;
+        }
+
+        p{
+            margin: 10px 0px 0px 0px;
+            font-family: 'demi_bold';
+        }
+    }
+
+
+    p{
+        font-size: 22px;
+
+    }
+
+    .login_link{
+        font-weight: bold;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+}

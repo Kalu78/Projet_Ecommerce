@@ -40,19 +40,24 @@ const Header = (props) => {
     return (
         <div className='navbar'>
             <div className='navbar_left'>
-                <img src={Logo.src} width="150px" height="100px" alt="Adios"/>
+                <Link href={`/`}>
+                    <img src={Logo.src} width="150px" height="100px" alt="Adios"/>
+                </Link>
             </div>
             <div className='navbar_menu'>
                 <ul>
                 {categories &&
                     categories.map((category) => (   
                     
-                        <a onClick={(e) => getSubcategories(category.attributes.name)}>
-                            <li category={category} key={category.id}>
-                                {category.attributes.name}     
+                            <li category={category} key={category.id} onClick={(e) => getSubcategories(category.attributes.name)}>
+                                {category.attributes.name} 
+
+                                {subcategoriesVisible ? (
+                                    // {category.attributes.subcategories.name} qqc comme ca
+                                )}    
+
                             </li>
-                        </a>
-              
+
                     ))}
                     {isVisible ? ( 
                         <div>
@@ -83,7 +88,9 @@ const Header = (props) => {
                     </div>
                 </div> 
                 <div className='account'>
-                <FontAwesomeIcon icon={faUser} />
+                    <Link href={`/login`}>
+                        <FontAwesomeIcon icon={faUser} />
+                    </Link>
                 </div>
                 <div className='cart'>
                     <Link href={`/cart`}>

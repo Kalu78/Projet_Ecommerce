@@ -1,32 +1,138 @@
 import React, {useState, useEffect} from 'react';
-import { useRouter } from "next/router";
 import productService from '../../../services/product.service';
+import categoryService from '../../../services/category.service';
 import ProductCard from '../../../components/ProductCard';
-import { faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from "next/router";
+import attributesService from '../../../services/attributes.service';
 
 
 export async function getServerSideProps(context){
-
-
     const { id } = context.query;
-
-
       const data = await productService.getProductsByCategory(id);
+      const categories = await categoryService.getSubcategoriesById(id);
       return {
         props: {
+          categories,
           data
         },
       };
 }   
 
-const Index = ( {data} ) => {
 
+const Index = ( {data, categories} ) => {
+
+    const router = useRouter();
 
     const [products, setProducts] = useState();
 
+    const [category, setCategory] = useState();
+
+    const [filterSize, setFilterSize] = useState(null);
+
+    const [test, setTest] = useState();
+
+    const [isFilter, setIsFilter] = useState(false);
+
+    const [attributes, setAttributes] = useState();
+
+
+    if(!router.isReady) return;
+    const id = router.query.id;
+
     useEffect(() => {
+      setFilterSize(JSON.parse(localStorage.getItem("filter")))
+      setCategory(categories.data);
       setProducts(data.data);
-    });
+      attributesService.getAttributes()
+      .then((data) => {
+        setAttributes(data.data);
+        console.log(attributes);
+        })
+        .catch((err) => console.log(err));      
+    }, [data, categories]);
+
+    
+    const filterByPriceDesc = () => {
+      productService.getProductByPriceDesc(id)
+      .then((data) => {
+          setProducts(data.data);
+      })
+      .catch((err) => console.log(err));  
+    }
+
+    const filterByPriceAsc = () => {
+      productService.getProductByPriceAsc(id)
+      .then((data) => {
+          setProducts(data.data);
+      })
+      .catch((err) => console.log(err));  
+    }
+
+    const filterByDateAsc = () => {
+      productService.getProductByPriceAsc(id)
+      .then((data) => {
+          setProducts(data.data);
+      })
+      .catch((err) => console.log(err));  
+    }
+
+    const filterBySize = (e) => {
+      // if(filterSize == null){
+      //   setFilterSize(e);
+      // }
+      // else {
+      //   setFilterSize(`${filterSize}&${e}`);
+      // }
+      // if(filterSize && filterSize.includes(e)){
+      //   console.log(true);
+
+      // }else {
+      //   setFilterSize(e);
+      //   console.log(e);
+      // }
+
+      const filterArray = [];
+      if (localStorage.getItem("filter")) {
+
+        const localStorageFilter = JSON.parse(localStorage.getItem("filter"));
+          localStorageFilter.forEach((product) => {
+          filterArray.push(product);
+        });
+
+        setFilterSize(filterArray);
+        const indexOfExistingProduct = filterArray.findIndex((el) => el.id === e.id);
+
+        if (indexOfExistingProduct !== -1) {
+          filterArray.splice(indexOfExistingProduct, 1);
+        }
+        else{
+          filterArray.push(e);
+        }
+
+        localStorage.setItem("filter", JSON.stringify(filterArray));
+      }
+
+      else{
+        filterArray.push(e);
+        setFilterSize(filterArray);
+        localStorage.setItem("filter", JSON.stringify(filterArray));
+      }
+
+      let test = '';
+      
+      {filterSize &&
+        filterSize.map((size) => (
+          test += `${size && size.attributes.size}&`
+      ))}
+
+      console.log(test);
+
+      productService.getProductBySize(test, id)
+      .then((data) => {
+          setProducts(data.data);
+      })
+      .catch((err) => console.log(err));  
+    }
 
 
 
@@ -64,7 +170,11 @@ const Index = ( {data} ) => {
   
         <div className='container'>
             <div className='category_title'>
-              <h1></h1>
+              <h1>{category && category.attributes.name} pour {category && category.attributes.category.data.attributes.name}</h1>
+            </div>
+            <div className='category_subtitle'>
+              <p>{category && category.attributes.description}</p>
+              <button onClick={() => setIsFilter(true)}>Filtrer & trier</button>
             </div>
             <div className='product_grid'>
 
@@ -75,6 +185,43 @@ const Index = ( {data} ) => {
                   </div>
                 ))}
             </div>
+            {isFilter ? (
+              <div>
+                  <div className='overlay' onClick={() => {setIsFilter(false)}}></div>
+                  <div className='filter_container'>
+                    <div className='filter_title'>
+                      <h3>Filtrer & Trier</h3>
+                    </div>
+                    <div className='filter_types'>
+                      <p>Trier par</p>
+                      <p onClick={() => filterByPriceAsc()}>
+                        Prix (croissant)
+                      </p>
+                      <p onClick={() => filterByPriceDesc()}>
+                        Prix (decroissant)
+                      </p>
+                      <p onClick={() => filterByDateAsc()}>
+                        Nouveauté en premier
+                      </p>
+                      <ul>
+                        {attributes &&
+                          attributes.map((attribute) => (
+
+                                  <li onClick={() => filterBySize(attribute)}>{attribute.attributes.size}</li>
+  
+                        ))}
+                      </ul>
+                      <p>
+                                {test}
+                      </p>
+                    </div>
+                  </div>
+                
+              </div>
+              ) : (
+                
+              ''
+              )}
 
 
 
