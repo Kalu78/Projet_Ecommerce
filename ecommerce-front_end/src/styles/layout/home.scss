@@ -1,0 +1,49 @@
+.homepage{
+    .swiper{
+        .swiper-pagination {
+            bottom: 0 !important;
+        }
+    }
+
+    &_categories{
+        margin: 100px 0px;
+        &_content{
+            display: flex;
+            gap: 10px;
+        }
+
+        &_card{
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+            &_image{
+                width: 100%;
+            }
+
+            &_name{
+                position: absolute;
+                color: #fff;
+                z-index: 25;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 18px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: .15;
+    z-index: 1;
+}
+

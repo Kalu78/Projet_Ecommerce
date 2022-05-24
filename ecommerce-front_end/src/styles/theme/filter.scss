@@ -4,8 +4,79 @@
         background: white;
         height: 100vh;
         z-index: 999;
-        position: absolute;
+        position: fixed;
         right: 0;
         top: 0;
+
+        p, h3{
+            padding: 5px 20px;
+        }
     }
+
+    &_title{
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    &_subtitle{
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    &_types {
+        & > div{
+            border-bottom: 1px solid #e9ecef;
+        }
+        p{
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        &_size{
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            p{
+                border: 1px solid #e5e8ec;
+                background: white;
+                font-weight: 20px;
+                font-family: 'regular';
+                padding: 10px 20px;
+                font-size: 14px;
+                &:hover{
+                    background-color: black;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.button_filter{
+    background-color: white;
+    color: black;
+    list-style: none;
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-family: 'demi_bold';
+    font-size: 16px;
+    &:hover{
+        cursor: pointer;
+        color: #797979;
+        border: 1px solid #797979;
+    }
+}
+
+.overlay_filter{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 99;
 }

@@ -62,7 +62,7 @@ const Header = () => {
                             <>
                             <div className='navbar_menu_dropdown'>
                                 {category.attributes.subcategories.data.map((subcategory) => ( 
-                                    <Link href={`/category/${subcategory.id}`}>
+                                    <Link href={`/subcategory/${subcategory.id}`}>
                                         <p subcategory={subcategory} key={subcategory.id} onClick={() => setIsVisible(false)}>{subcategory.attributes.name}</p> 
                                     </Link>
                                 ))}

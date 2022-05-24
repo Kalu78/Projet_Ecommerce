@@ -11,7 +11,8 @@ const Input = (props) => {
         onChange={props.handleChange}
         required={props.required}
         placeholder={props.placeholder}
-        className={props.classes}      
+        className={props.classes}     
+        value={props.value} 
       />
     </div>
   );

@@ -99,6 +99,29 @@
     width: 30%;
     padding: 20px 15px;
 
+    &_history{
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        margin: 0 0 10px 0;
+
+        p{
+            margin: 0;
+            font-size: 22px;
+            font-family: 'thin';
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        span{
+            font-size: 30px;
+            top: -3px;
+            position: relative;
+        }
+    }
+
+
     &_content{
         position: fixed;
         padding: 20px 15px;
@@ -218,7 +241,15 @@
     font-family: 'bold' !important;
 }
 
-.product_error{
+.product_comment_error{
     color: #e63f3f;
     margin: 0 0 10px 0;
+}
+
+.product_size_error{
+    color: #e63f3f;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets{
+    bottom: 0 !important;
 }

@@ -33,5 +33,14 @@ export default {
             }
         })
         .then((res) => res.json())
-    },
+    }, 
+    getUserOrder(id) {
+        return fetch(`${apiUrl}/orders?filters[user][id][$eq]=${id}&populate=*`, {
+            method: "GET",
+            headers: {
+                "Content-Type":"Application/json",
+            }
+        })
+        .then((res) => res.json())
+    }
 };

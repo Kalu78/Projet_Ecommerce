@@ -1,11 +1,14 @@
 import React from "react";
+import Link from 'next/link';
 
 const CartItem = (props) => {
   return (
     <div>
         <div className='cart_card'>
             <div className='cart_card_img'>
-                <img src={props.cartItem.image}/>
+                <Link href={`product/${props.cartItem.id}`}>
+                    <img src={props.cartItem.image}/>
+                </Link>
             </div>
             <div className='cart_card_content'>
                 <div className='cart_card_content_description'>

@@ -131,9 +131,9 @@ const Index = () => {
                         type="text"
                         classes="form__input"
                         required={true}
-                        placeholder="Prénom"
+                        placeholder='Prénom'
                         handleChange={ (e) => setFirstname({firstname:e.target.value})}
-                            />
+                        />
                     </div>
                     <div className='delivery_address'>
                         <Input

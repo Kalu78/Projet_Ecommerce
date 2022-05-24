@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Input from "../../../components/Input";
 import productService from '../../../services/product.service';
 import userService from '../../../services/user.service';
-import commentService from '../../../services/comment.service';
 import ButtonCart from '../../../components/Button/ButtonCart';
 import Slider from '../../../components/Slider';
 import Link from 'next/link';
@@ -28,6 +27,13 @@ const Index = ( { data, review, id } ) => {
         setProduct(data.data);
         setAttributes(data.data.attributes.attributes);
         setComments(review.data);
+
+        productService.getProductsBySubcategory(data.data.attributes.subcategory.data.id)
+        .then((data) => {
+            setSimilarProduct(data.data);
+        })
+        .catch((err) => console.log(err));
+    
     });
 
     const router = useRouter();
@@ -36,6 +42,8 @@ const Index = ( { data, review, id } ) => {
     const [attributes, setAttributes] = useState();
     const [productSelected, setProductSelected] = useState();
     const [productViewed, setProductViewed] = useState();
+
+    const [productSimilar, setSimilarProduct] = useState();
 
     const [comments, setComments] = useState();
 
@@ -130,9 +138,7 @@ const Index = ( { data, review, id } ) => {
 
 
     useEffect(() => {
-
         setProductViewed(JSON.parse(localStorage.getItem("product_viewed")) || []);
-
     }, []);
 
     const [comment, setComment] = useState();
@@ -229,6 +235,7 @@ const Index = ( { data, review, id } ) => {
                             <p>Description</p>
                             <p>Commentaires</p>
                             <p>Produits similaires</p>
+                            <p>Pour vous</p>
                         </div>
                     </div>
                     <div className='product_bottom_content'>
@@ -257,7 +264,7 @@ const Index = ( { data, review, id } ) => {
                                     ))}
                                     </div>
                                 ) : (
-                                    <p>Pas encore de commentaires</p>
+                                    <p>Pas encore de commentaire</p>
                                 )}
                             </div>
                             <h3>Ajouter un commentaire</h3>
@@ -272,7 +279,7 @@ const Index = ( { data, review, id } ) => {
                                     handleChange={ (e) => setComment({content:e.target.value})}
                                 />
                                 {errorComment ? (
-                                    <p className='product_error'>Vous devez être connecté pour pouvoir écrire un commentaire</p>
+                                    <p className='product_comment_error'>Vous devez être connecté pour pouvoir écrire un commentaire</p>
                                     ) : (
                                         ""
                                 )}
@@ -280,9 +287,14 @@ const Index = ( { data, review, id } ) => {
                             </form>
                         </div>
 
+                        <div className='product_bottom_similar'>
+                            <Slider title='Produits de la même catégorie' products={productSimilar}/>
+                        </div>
+
                         <div className='product_bottom_recommended'>
                             <Slider title='Toujours intéressé ?' products={productViewed}/>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -293,6 +305,21 @@ const Index = ( { data, review, id } ) => {
 
             <div className='sidebar'>
                 <div className='sidebar_content'>
+                    <div className='sidebar_history'>
+                        <Link href={`/category/${product && product.attributes.category.data.id}`}>
+                            <p>
+                            {product && product.attributes.category.data.attributes.name}
+                            </p>
+                        </Link> 
+                        <span>
+                        • 
+                        </span>
+                        <Link href={`/category/${product && product.attributes.subcategory.data.id}`}>
+                            <p>
+                            {product && product.attributes.subcategory.data.attributes.name}
+                            </p>
+                        </Link> 
+                    </div>
                     <div className='product_description'>
                         <h1 className='product_name'>{product && product.attributes.name}</h1>
                         <p className='product_price'>{product && product.attributes.price} €</p>
@@ -313,7 +340,7 @@ const Index = ( { data, review, id } ) => {
                             ))}
                         </div>
                         {isError ? (
-                            <p className='product_error'> Veuillez sélectionner une taille </p>
+                            <p className='product_size_error'> Veuillez sélectionner une taille </p>
                             ) : (
                                 ""
                         )}

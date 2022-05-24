@@ -6,6 +6,10 @@ export default {
         return fetch(`${apiUrl}/categories?populate=*`)
         .then((res) => res.json())
     },
+    getCategoriesById(id){
+        return fetch (`${apiUrl}/categories/${id}?populate=*`)
+        .then((res) => res.json())
+    },
     getSubcategories(){
         return fetch(`${apiUrl}/subcategories?populate=*`)
         .then((res) => res.json())
