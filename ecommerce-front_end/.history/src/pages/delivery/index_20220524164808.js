@@ -87,7 +87,11 @@ const Index = () => {
         )
         .catch(err => {
             console.log(err)  
-        });
+          });
+        // e.preventDefault();
+        // console.log(name);
+        // console.log(order);
+        // orderService.confirm_order(order);
     }
 
     return (

@@ -57,8 +57,7 @@ const Index = () => {
                         <div className='cart_right'>
                             <div className='cart_buttons'>
                                 {error ? (
-                                    <p className='login_error'>Vous devez être connecter pour passer une commande.
-                                    <Link href='/login'><strong> Se connecter</strong></Link></p>
+                                    <p className='login_error'>Une erreur est survenu</p>
                                     ) : (
                                     ''
                                 )}

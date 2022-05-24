@@ -9,8 +9,6 @@ const Index = () => {
 
     const router = useRouter();
 
-    const [error, setError] = useState();
-
     const [cart, setCart] = useState();
 
     useEffect(() => {
@@ -28,13 +26,7 @@ const Index = () => {
     }
 
     const goToDelivery = () => {
-        if(localStorage.getItem('token')){
-            router.push('/delivery');
-        }
-        else{
-            setError(true);
-        }
-        
+        router.push('/delivery');
     }
 
     console.log(cart);
@@ -56,12 +48,6 @@ const Index = () => {
                         </div>
                         <div className='cart_right'>
                             <div className='cart_buttons'>
-                                {error ? (
-                                    <p className='login_error'>Vous devez être connecter pour passer une commande.
-                                    <Link href='/login'><strong> Se connecter</strong></Link></p>
-                                    ) : (
-                                    ''
-                                )}
                                 <div onClick={() => goToDelivery()}>
                                     <ButtonCart className='cart_buttons_order' title="commander"></ButtonCart>
                                 </div>

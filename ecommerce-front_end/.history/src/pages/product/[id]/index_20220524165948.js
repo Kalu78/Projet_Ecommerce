@@ -288,7 +288,7 @@ const Index = ( { data, review, id } ) => {
                         </div>
 
                         <div className='product_bottom_similar'>
-                            <Slider title='Produits similaires' products={productSimilar}/>
+                            <Slider title='Produits similaire' products={productSimilar}/>
                         </div>
 
                         <div className='product_bottom_recommended'>

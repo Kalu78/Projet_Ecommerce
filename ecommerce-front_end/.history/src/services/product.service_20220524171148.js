@@ -23,7 +23,7 @@ export default {
         return fetch(`${apiUrl}/products?sort[0]=price:asc&filters[category][id][$eq]=${id}&populate[image][fields][1]=url`)
         .then((res) => res.json())
     },
-    getProductByDateAsc(id){
+    getProductByPriceAsc(id){
         return fetch(`${apiUrl}/products?sort=createdAt:asc&filters[category][id][$eq]=${id}&populate[image][fields][1]=url`)
         .then((res) => res.json())
     },

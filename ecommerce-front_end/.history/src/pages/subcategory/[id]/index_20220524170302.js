@@ -8,8 +8,8 @@ import attributesService from '../../../services/attributes.service';
 
 export async function getServerSideProps(context){
     const { id } = context.query;
-      const data = await productService.getProductsByCategory(id);
-      const categories = await categoryService.getCategoriesById(id);
+      const data = await productService.getProductsBySubcategory(id);
+      const categories = await categoryService.getSubcategoriesById(id);
       return {
         props: {
           categories,
@@ -53,18 +53,19 @@ const Index = ( {data, categories} ) => {
 
     
     const filterByPriceDesc = () => {
-      productService.getProductByPriceDesc(id)
+      productService.getProductSubByPriceDesc(id)
       .then((data) => {
           setProducts(data.data);
       })
-      .catch((err) => console.log(err));  
+      .catch((err) => console.log(err));
       
       setIsFilter(false)
     }
 
     const filterByPriceAsc = () => {
-      productService.getProductByPriceAsc(id)
+      productService.getProductSubByPriceAsc(id)
       .then((data) => {
+        console.log(data.data);
           setProducts(data.data);
       })
       .catch((err) => console.log(err));  
@@ -73,7 +74,7 @@ const Index = ( {data, categories} ) => {
     }
 
     const filterByDateAsc = () => {
-      productService.getProductByDateAsc(id)
+      productService.getProductSubByPriceAsc(id)
       .then((data) => {
           setProducts(data.data);
       })
@@ -83,7 +84,20 @@ const Index = ( {data, categories} ) => {
     }
 
     const filterBySize = (e) => {
-      
+      // if(filterSize == null){
+      //   setFilterSize(e);
+      // }
+      // else {
+      //   setFilterSize(`${filterSize}&${e}`);
+      // }
+      // if(filterSize && filterSize.includes(e)){
+      //   console.log(true);
+
+      // }else {
+      //   setFilterSize(e);
+      //   console.log(e);
+      // }
+
       const filterArray = [];
       if (localStorage.getItem("filter")) {
 
@@ -120,12 +134,12 @@ const Index = ( {data, categories} ) => {
 
       console.log(test);
 
-      productService.getProductBySize(test, id)
+      productService.getProductSubBySize(test, id)
       .then((data) => {
           setProducts(data.data);
       })
-      .catch((err) => console.log(err)); 
-      
+      .catch((err) => console.log(err));  
+
       setIsFilter(false)
     }
 
@@ -165,7 +179,7 @@ const Index = ( {data, categories} ) => {
   
         <div className='container'>
             <div className='category_title'>
-              <h1>{category && category.attributes.name}</h1>
+              <h1>{category && category.attributes.name} pour {category && category.attributes.category.data.attributes.name}</h1>
             </div>
             <div className='category_subtitle'>
               <p>{category && category.attributes.description}</p>

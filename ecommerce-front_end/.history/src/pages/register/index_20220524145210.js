@@ -26,7 +26,8 @@ const Index = () => {
           }
         )
         .catch(err => {
-          console.log(err)  
+          console.log(err);
+          setShowModal(true);      
         });
       }
 

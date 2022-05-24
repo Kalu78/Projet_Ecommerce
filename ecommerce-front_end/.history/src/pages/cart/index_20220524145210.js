@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import ButtonCart from '../../components/Button/ButtonCart';
-import { useRouter } from "next/router";
 import Link from 'next/link';
 import CartItem from '../../components/CartItem';
 import OrderResume from '../../components/OrderResume';
 
 const Index = () => {
-
-    const router = useRouter();
-
-    const [error, setError] = useState();
 
     const [cart, setCart] = useState();
 
@@ -25,16 +20,6 @@ const Index = () => {
         const filteredCart = cart.filter((item) => item.size != e.size || item.id != e.id);
         localStorage.setItem("cart", JSON.stringify(filteredCart));
         setCart(filteredCart);
-    }
-
-    const goToDelivery = () => {
-        if(localStorage.getItem('token')){
-            router.push('/delivery');
-        }
-        else{
-            setError(true);
-        }
-        
     }
 
     console.log(cart);
@@ -56,15 +41,9 @@ const Index = () => {
                         </div>
                         <div className='cart_right'>
                             <div className='cart_buttons'>
-                                {error ? (
-                                    <p className='login_error'>Vous devez être connecter pour passer une commande.
-                                    <Link href='/login'><strong> Se connecter</strong></Link></p>
-                                    ) : (
-                                    ''
-                                )}
-                                <div onClick={() => goToDelivery()}>
+                                <Link href={`/delivery`}>
                                     <ButtonCart className='cart_buttons_order' title="commander"></ButtonCart>
-                                </div>
+                                </Link>
                             </div>
                             <OrderResume totalQuantity={totalQuantity} totalAmount={totalAmount}/>
                         </div>

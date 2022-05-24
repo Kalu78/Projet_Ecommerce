@@ -8,8 +8,6 @@ import userService from '../../services/user.service';
 
 const Index = () => {
 
-    const [error, setError] = useState();
-
     const router = useRouter();
 
     const [cart, setCart] = useState();
@@ -76,18 +74,12 @@ const Index = () => {
             }})
         })
         .then(
-            (data) => {
-                if (data.error){
-                    setError(true);
-                }
-                else{
-                     setIsModal(true)
-                }
-            }
+            setIsModal(true),
         )
-        .catch(err => {
-            console.log(err)  
-        });
+        // e.preventDefault();
+        // console.log(name);
+        // console.log(order);
+        // orderService.confirm_order(order);
     }
 
     return (
@@ -100,8 +92,8 @@ const Index = () => {
                 <div className='modal_add_to_cart'>
                     <div className='modal_container'>
                         <h2 className='modal_title'>Commande effectué !</h2>
-                        <h3>Merci pour votre commande.</h3>
                         <div className='modal_content'>
+                            <h3>Merci pour votre commande.</h3>
                             <div className='modal_content_resume'>
                                 <p>Détails de la commande</p>
                                 {cart && cart.map((cartItem) => (
@@ -121,11 +113,6 @@ const Index = () => {
             )}
 
             <h1 className='delivery_title'>Information de livraison</h1>
-            {error ? (
-              <p className='login_error'>Une erreur est survenu</p>
-            ) : (
-              ''
-            )}
             <div className='delivery_content'>
                 <form className="form" onSubmit={(e) => submitOrder(e)}>
                     <div className='delivery_names'>

@@ -73,7 +73,7 @@ const Index = ( {data, categories} ) => {
     }
 
     const filterByDateAsc = () => {
-      productService.getProductByDateAsc(id)
+      productService.getProductByPriceAsc(id)
       .then((data) => {
           setProducts(data.data);
       })
@@ -83,7 +83,20 @@ const Index = ( {data, categories} ) => {
     }
 
     const filterBySize = (e) => {
-      
+      // if(filterSize == null){
+      //   setFilterSize(e);
+      // }
+      // else {
+      //   setFilterSize(`${filterSize}&${e}`);
+      // }
+      // if(filterSize && filterSize.includes(e)){
+      //   console.log(true);
+
+      // }else {
+      //   setFilterSize(e);
+      //   console.log(e);
+      // }
+
       const filterArray = [];
       if (localStorage.getItem("filter")) {
 

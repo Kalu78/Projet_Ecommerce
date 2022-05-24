@@ -123,6 +123,7 @@
 
 
     &_content{
+        position: fixed;
         padding: 20px 15px;
     }
 
@@ -198,7 +199,7 @@
     }
 
     &_add_to_cart{
-        position: absolute;
+        position: fixed;
         z-index: 3;
         background: white;
         width: 80%;
